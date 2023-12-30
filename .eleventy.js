@@ -7,7 +7,6 @@ const pluginCritical = require("eleventy-critical-css");
 const pluginImage = require("eleventy-plugin-img2picture");
 const pluginShopify = require("eleventy-plugin-shopify");
 
-
 // Config Imports
 const configSitemap = require("./src/config/plugins/sitemap");
 const configCritical = require("./src/config/plugins/critical");
@@ -18,6 +17,7 @@ const configShopify = require("./src/config/plugins/shopify");
 
 // Filter Imports
 const filterGetProductsInCollection = require("./src/config/filters/getProductsInCollection");
+const filterFormatDate = require("./src/config/filters/formatDate");
 
 const isProduction = process.env.ELEVENTY_ENV === "PROD";
 
@@ -40,9 +40,9 @@ module.exports = function (eleventyConfig) {
 	// https://github.com/quasibit/eleventy-plugin-sitemap
 	eleventyConfig.addPlugin(pluginSitemap, configSitemap);
 
-      // Queries your Shopify store at build time to expose product and collection data under the `shopify` global object
-    // https://github.com/dleatherman/eleventy-plugin-shopify
-    eleventyConfig.addPlugin(pluginShopify, configShopify);
+	// Queries your Shopify store at build time to expose product and collection data under the `shopify` global object
+	// https://github.com/dleatherman/eleventy-plugin-shopify
+	eleventyConfig.addPlugin(pluginShopify, configShopify);
 
 	// Converts <img> tags to responsive <picture>s. An opt-in feature. Please read config/plugins/image.js to find out more
 	// https://github.com/saneef/eleventy-plugin-img2picture
@@ -83,8 +83,16 @@ module.exports = function (eleventyConfig) {
 	eleventyConfig.addTemplateFormats("js");
 	eleventyConfig.addExtension("js", configJs);
 
-  eleventyConfig.addFilter("getProductsInCollection", filterGetProductsInCollection);
+	/**
+	 *  FILTERS
+	 *      Allows modification of data before it is outputted, denoted by {{ contentToPrint | filterName }}
+	 *          https://www.11ty.dev/docs/filters/
+	 */
 
+	// Turns a date from ISO format to a more human-readable one
+	eleventyConfig.addFilter("formatDate", filterFormatDate);
+
+	eleventyConfig.addFilter("getProductsInCollection", filterGetProductsInCollection);
 
 	return {
 		dir: {
@@ -94,4 +102,5 @@ module.exports = function (eleventyConfig) {
 			data: "_data",
 		},
 		htmlTemplateEngine: "njk",
-	}}
+	};
+};
