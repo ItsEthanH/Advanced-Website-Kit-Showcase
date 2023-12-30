@@ -22,7 +22,7 @@ Welcome to the highly anticipated <b>Advanced Starter</b> Kit by <b>CodeStitch</
   <img src="https://img.shields.io/github/stars/CodeStitchOfficial/Intermediate-Website-Kit-SASS?color=dark-green" alt="Issues" />
   <img src="https://img.shields.io/github/license/CodeStitchOfficial/Intermediate-Website-Kit-SASS" alt="License" />
 </div>
- 
+
 # Table of Contents
 
 - [Overview](#overview)
